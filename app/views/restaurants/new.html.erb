@@ -1,0 +1,27 @@
+<% content_for(:title) do %>
+  La Cuillere - new restaurant
+<% end %>
+
+<h1>Add your restaurant</h1>
+
+<p>Please fill the following fields</p>
+
+<% categories = ["chinese", "italian", "japanese", "french", "belgian"] %>
+
+<%= bootstrap_form_for(@restaurant) do | f | %>
+  <% if @restaurant.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @restaurant.errors.full_messages.each do | message | %>
+          <li><%= message %></li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    Name:  <%= f.text_field :name %><br>
+    Address: <%= f.text_field :address %><br>
+    Phone: <%= f.text_field :phone_number %><br>
+    Category: <%= f.select(:category, categories.map { | val | [val, val] }, include_blank: true) %><br>
+    <%= f.submit %>
+<% end %>
